@@ -20,46 +20,98 @@ class Profile_controller extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('home');
+		$this->load->view('profile-researcher');
 	}
 
 	public function initialize()
 	{
 		
 
-		$search_input = $this->input->get('search_input');
-		$filter_input = $this->input->get('filter_input');
+		$profile_id = $this->input->get('result_id');
+		$profile_type = $this->input->get('result_type');
+			echo "<script>alert('IYAK');</script>";
+			echo "<script>alert('".$profile_id."');</script>";
+			echo "<script>alert('".$profile_type."');</script>";
 
-		if( $filter_input == 'researcher') {
-			$query = $this->db->query("select id, name AS title
-										from researcher r 
-										where name LIKE '%".
-										$search_input."%'");
-			$img_source = "assets/img/researcher.jpg";
-		}
-		else if( $filter_input == 'study') {
-			$query = $this->db->query("select id, title AS title
+		if( $profile_type == 'researcher') {
+			$query = $this->db->query("select name
+										from researcher r
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$profile_name = $row->name;
+			}
+
+			// GETTING JOURNALS OF THE AUTHOR
+			$query = $this->db->query("select j.id, title 
 										from journal j 
-										where title LIKE '%".
-										$search_input."%'");
-			$img_source = "assets/img/study.jpg";
+										where author_id = '".
+										$profile_id."'");
+			$journals_result = $query->result();
+
+			// GETTING ALL JOURNALS
+			$query = $this->db->query("select j.id, title 
+										from journal j");
+			$all_journals_result = $query->result();
+
+			$profile_mainpic = "assets/img/researcher.jpg";
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_name' => $profile_name,
+			'journals_result' => $journals_result,
+			'profile_type' => $profile_type,
+			'profile_mainpic' => $profile_mainpic,
+			'all_journals_result' => $all_journals_result
+			);
+		}
+		else if( $profile_type == 'study') {
+			$query = $this->db->query("select title AS name
+										from journal j
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$profile_name = $row->name;
+			}
+
+			// $query = $this->db->query("select id, 
+			// $query = $this->db->query("select id, title AS title
+			// 							from journal j 
+			// 							where title LIKE '%".
+			// 							$search_input."%'");
+			$profile_mainpic = "assets/img/study.jpg";
 		}
 		else {
-			$query = $this->db->query("select id, name
-										from researcher r 
-										where name LIKE '%".
-										$search_input."%'");
-			$img_source = "assets/img/researcher.jpg";
+			// $query = $this->db->query("select id, name
+			// 							from researcher r 
+			// 							where name LIKE '%".
+			// 							$search_input."%'");
+			$profile_mainpic = "assets/img/researcher.jpg";
 		}
 
-		$queryResult = $query->result();
+		// $queryResult = $query->result();
 
-		$data = array(
-		'filter_input' => $filter_input,
-		'queryResult' => $query->result(),
-		'img_source' => $img_source
-		);
+		// // if researcher
+		// $data = array(
+		// 'profile_id' => $profile_id,
+		// 'profile_name' => $profile_name,
+		// 'queryResult' => $query->result(),
+		// 'profile_type' => $profile_type
+		// 'profile_mainpic' => $profile_mainpic
+		// );
 
-		$this->load->view('results', $data);
+		// // if study
+		// $data = array(
+		// 'profile_id' => $profile_id,
+		// 'profile_name' => $profile_name,
+		// 'queryResult' => $query->result(),
+		// 'profile_type' => $profile_type
+		// 'profile_mainpic' => $profile_mainpic
+		// );
+
+		$this->load->view('profile-researcher', $data);
+	}
+
+	private function buildArrayFromJournalResult($journal_result){
+
 	}
 }

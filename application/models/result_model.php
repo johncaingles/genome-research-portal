@@ -1,10 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class result extends CI_Model {
+class result_model extends CI_Model {
 
     var $title   = '';
     var $content = '';
-    var $category    = '';
+    var $img_source = '';
+    var $result_type    = '';
     
     function __construct()
     {

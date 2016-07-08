@@ -29,7 +29,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	      <div class="row">
 
 			<?php foreach($queryResult as $row): ?>
-				<form id="card" method="get" action="<?php echo site_url('profile_controller/initialize'); ?>">
+				<form class="card" method="get" action="<?php echo site_url('profile_controller/initialize'); ?>">
+					<input type="hidden" name="result_type" value="<?php echo $row->result_type ?>">
+					<input type="hidden" name="result_id" value="<?php echo $row->id ?>">
 					<div class="col s4">
 				        <div class="card " style="overflow: hidden;">
 			              <div class="card-image waves-effect waves-block waves-light">
@@ -40,7 +42,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			                		<i class="material-icons right" sytle="cursor: pointer;">more_vert</i>
 			                </span>
 
-			                <p><a href="#!" value="<?php echo $row->id ?>" >Learn more..</a></p>
+			                <p><button style="background:none!important;
+										     border:none; 
+										     padding:0!important;
+										     font: inherit;
+										     /*border is optional*/
+										     border-bottom:1px solid #444; 
+										     cursor: pointer;" 
+									     type="submit" >Learn more..
+							     </button></p>
 			              </div>
 			              <div class="card-reveal" style="display: none; transform: translateY(0px);">
 			                <span class="card-title grey-text text-darken-4"><?php echo $row->title ?><i class="material-icons right">close</i></span>

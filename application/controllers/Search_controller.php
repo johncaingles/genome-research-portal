@@ -31,28 +31,35 @@ class Search_controller extends CI_Controller {
 		$filter_input = $this->input->get('filter_input');
 
 		if( $filter_input == 'researcher') {
-			$query = $this->db->query("select id, name AS title
+
+			$query = $this->db->query("select id, name AS title, 'researcher' AS result_type
 										from researcher r 
 										where name LIKE '%".
 										$search_input."%'");
 			$img_source = "assets/img/researcher.jpg";
 		}
 		else if( $filter_input == 'study') {
-			$query = $this->db->query("select id, title AS title
+			$query = $this->db->query("select id, title AS title, 'study' AS result_type
 										from journal j 
 										where title LIKE '%".
 										$search_input."%'");
 			$img_source = "assets/img/study.jpg";
 		}
 		else {
-			$query = $this->db->query("select id, name
+			$query = $this->db->query("select id, name AS title
 										from researcher r 
 										where name LIKE '%".
 										$search_input."%'");
 			$img_source = "assets/img/researcher.jpg";
 		}
 
-		$queryResult = $query->result();
+		// $queryResult = $query->result();
+
+		// $this->load->model('result_item');
+
+		// IDEA FOR COMBINING OF RESULTS
+		// create array of arrays, where in each array, there is a queryResult, img_source, and result type
+		// therefore combing all types of queries
 
 		$data = array(
 		'filter_input' => $filter_input,
@@ -60,11 +67,11 @@ class Search_controller extends CI_Controller {
 		'img_source' => $img_source
 		);
 
+		$this->load->view('results', $data);
+
 		// $data = $
 		// foreach ($query->result() as $row) {
 		// 	$
 		// }
-
-		$this->load->view('results', $data);
 	}
 }

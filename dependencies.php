@@ -15,3 +15,10 @@
 <!-- Include all compiled plugins (below), or include individual files as needed --><!-- 
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
  -->
+ 
+  <script src="<?php echo base_url(); ?>assets/js/jquery-2.1.1.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/materialize.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/slider.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/hammer.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/cards.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/init.js"></script>

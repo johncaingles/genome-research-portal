@@ -20,12 +20,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li><a href="">Researchers</a></li>
         <li><a href="">Studies</a></li>
         <li><a href="">About</a></li>
+        <li><a href="<?php echo site_url('login_controller/index'); ?>">Login</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- <script>alert("<?php echo site_url('search_controller/searchSingle'); ?>")</script> -->
+
 	<!-- <div class="pushdown-10p"></div> -->
-<form id="user_input" method="post" action="<?php echo site_url('search_controller/searchSingle'); ?>">
+<form id="user_input" method="get" action="<?php echo site_url('search_controller/searchSingle'); ?>">
 	<div id="container">
 		<div class="section center" style="padding-top: 5%;">
 			<img src="assets/img/full_logo.png" class="responsive-img" style="width:300px; height: auto;">
@@ -36,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			    <div class="input-field col s8">
 			      <input name="search_input" value="" id="search_input" type="text" class="validate">
-			      <label class="active" for="search_input">sup</label>
+			      <label class="active" for="search_input">Search</label>
 			    </div>
     
 			  <div class="input-field col s4">
@@ -62,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 </form>
 
-<br><br><br><br><br><br><br>
+<br><br><br><br><br>
 
 <footer class="page-footer light-blue lighten-1">
 	
