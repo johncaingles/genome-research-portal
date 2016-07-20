@@ -29,87 +29,305 @@ class Profile_controller extends CI_Controller {
 
 		$profile_id = $this->input->get('result_id');
 		$profile_type = $this->input->get('result_type');
-			echo "<script>alert('IYAK');</script>";
-			echo "<script>alert('".$profile_id."');</script>";
-			echo "<script>alert('".$profile_type."');</script>";
+			// echo "<script>alert('IYAK');</script>";
+			// echo "<script>alert('".$profile_id."');</script>";
+			// echo "<script>alert('".$profile_type."');</script>";
 
 		if( $profile_type == 'researcher') {
-			$query = $this->db->query("select name
+			$query = $this->db->query("select CONCAT(first_name, last_name) AS name, 'assets/img/researcher.jpg' AS mainpic_source, affiliation
 										from researcher r
 										where id='".$profile_id."'");
 			foreach ($query->result() as $row) {
 				$profile_name = $row->name;
+				$profile_mainpic = $row->mainpic_source;
+				$affiliation = $row->affiliation;
 			}
 
-			// GETTING JOURNALS OF THE AUTHOR
-			$query = $this->db->query("select j.id, title 
-										from journal j 
-										where author_id = '".
-										$profile_id."'");
-			$journals_result = $query->result();
+			// GETTING STUDIES OF THE AUTHOR
+			$query = $this->db->query("select r.id AS id, r.title AS title, 'study' AS result_type
+										from reference r, reference_researcher rr 
+										where rr.researcher_id = '".
+										$profile_id."' AND rr.reference_id = r.id");
+			$studies_result = $query->result();
 
-			// GETTING ALL JOURNALS
-			$query = $this->db->query("select j.id, title 
-										from journal j");
-			$all_journals_result = $query->result();
+			// GETTING ENCOUNTERED GENOMES
+			$query = $this->db->query("select DISTINCT o.id AS id, o.species AS species, 'genome' AS result_type
+										from reference r, reference_researcher rr, genbank g, genbank_reference gr, organism o 
+										where rr.researcher_id = '".
+										$profile_id."' AND rr.reference_id = r.id AND gr.reference_id = r.id AND gr.genbank_id = g.id AND g.organism_id = o.id");
+			$genomes_result = $query->result();
 
-			$profile_mainpic = "assets/img/researcher.jpg";
+			
 
 			// RESULTS
 			$data = array(
 			'profile_id' => $profile_id,
-			'profile_name' => $profile_name,
-			'journals_result' => $journals_result,
 			'profile_type' => $profile_type,
+			'profile_name' => $profile_name,
 			'profile_mainpic' => $profile_mainpic,
-			'all_journals_result' => $all_journals_result
+
+			'age' => "53",
+			'birthdate' => "May 12, 1996",
+			'sex' => "M",
+			'contact' => "09179118551",
+			'affiliation' => $affiliation,
+
+			'studies_result' => $studies_result,
+			'genomes_result' => $genomes_result
 			);
+
+			$this->load->view('profile-researcher', $data);
 		}
 		else if( $profile_type == 'study') {
-			$query = $this->db->query("select title AS name
-										from journal j
+			$query = $this->db->query("select title, 'assets/img/researcher.jpg' AS mainpic_source 
+										from reference r
 										where id='".$profile_id."'");
 			foreach ($query->result() as $row) {
-				$profile_name = $row->name;
+				$profile_title = $row->title;
+				$profile_mainpic = $row->mainpic_source;
 			}
 
-			// $query = $this->db->query("select id, 
-			// $query = $this->db->query("select id, title AS title
-			// 							from journal j 
-			// 							where title LIKE '%".
-			// 							$search_input."%'");
-			$profile_mainpic = "assets/img/study.jpg";
+			// GETTING JOURNALS AND PUBMED
+			$query = $this->db->query("select journal, pubmed
+										from researcher r, reference_researcher rr, reference ref
+										where r.id='".$profile_id."', reference_id=ref.id, researcher_id.r.id");
+			foreach ($query->result() as $row) {
+				$journals = $row->journals;
+				$pubmed = $row->pubmed;
+			}
+
+			// GETTING RESEARCHERS OF THE STUDY
+			$query = $this->db->query("select r.id AS id, CONCAT(r.first_name, r.last_name) AS name, 'researcher' AS result_type 
+										from researcher r, reference_researcher rr 
+										where rr.reference_id = '".
+										$profile_id."' AND rr.researcher_id = r.id");
+			$researchers_result = $query->result();
+
+			// GETTING ENCOUNTERED GENOMES
+			$query = $this->db->query("select DISTINCT o.id AS id, o.species AS species, 'genome' AS result_type
+										from reference_researcher rr, genbank g, genbank_reference gr, organism o 
+										where rr.reference_id = '".
+										$profile_id."' AND gr.genbank_id = g.id AND g.organism_id = o.id");
+			$genomes_result = $query->result();
+
+			
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_type' => $profile_type,
+			'profile_title' => $profile_title,
+			'profile_mainpic' => $profile_mainpic,
+
+			'journals' => $journals,
+			'pubmed' => $pubmed,
+
+			'researchers_result' => $studies_result,
+			'genomes_result' => $genomes_result
+			);
+
+			$this->load->view('profile-researcher', $data);
 		}
-		else {
-			// $query = $this->db->query("select id, name
-			// 							from researcher r 
-			// 							where name LIKE '%".
-			// 							$search_input."%'");
-			$profile_mainpic = "assets/img/researcher.jpg";
+		else if( $profile_type == 'genome') {
+			$query = $this->db->query("select species, 'assets/img/researcher.jpg' AS mainpic_source
+										from organism o
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$profile_title = $row->species;
+				$profile_mainpic = $row->mainpic_source;
+			}
+
+			// GETTING TAXONONMY
+			$query = $this->db->query("select taxonomy
+										from organism o
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$taxonomy = $row->taxonomy;
+			}
+
+			// GETTING STUDIES
+			$query = $this->db->query("select DISTINCT r.id AS id, r.title AS title, 'study' AS result_type
+										from reference r, genbank_reference gr, organism o, genbank g
+										where o.id = '".
+										$profile_id."' AND o.id = g.id AND g.id = gr.genbank_id AND gr.reference_id = r.id");
+			$studies_result = $query->result();
+
+			// GETTING RESEARCHERS THAT ENCOUNTERDBLABLA
+			$query = $this->db->query("select DISTINCT re.id AS id, CONCAT(re.first_name, re.last_name) AS name, 'researcher' AS result_type 
+										from reference r, genbank_reference gr, organism o, genbank g, reference_researcher rr, researcher re
+										where o.id = '".
+										$profile_id."' AND o.id = g.id AND g.id = gr.genbank_id AND gr.reference_id = r.id AND r.id = rr.reference_id AND re.id = rr.researcher_id");
+			$researchers_result = $query->result();
+
+			
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_type' => $profile_type,
+			'profile_title' => $profile_title,
+			'profile_mainpic' => $profile_mainpic,
+
+			'taxonomy' => $taxonomy,
+
+			'studies_result' => $studies_result,
+			'researchers_result' => $researchers_result
+			);
+
+			$this->load->view('profile-researcher', $data);
+
 		}
-
-		// $queryResult = $query->result();
-
-		// // if researcher
-		// $data = array(
-		// 'profile_id' => $profile_id,
-		// 'profile_name' => $profile_name,
-		// 'queryResult' => $query->result(),
-		// 'profile_type' => $profile_type
-		// 'profile_mainpic' => $profile_mainpic
-		// );
-
-		// // if study
-		// $data = array(
-		// 'profile_id' => $profile_id,
-		// 'profile_name' => $profile_name,
-		// 'queryResult' => $query->result(),
-		// 'profile_type' => $profile_type
-		// 'profile_mainpic' => $profile_mainpic
-		// );
-
-		$this->load->view('profile-researcher', $data);
 	}
+
+	public function initializeFromLink($profile_id, $profile_type)
+	{
+
+		if( $profile_type == 'researcher') {
+			$query = $this->db->query("select CONCAT(first_name, last_name) AS name, 'assets/img/researcher.jpg' AS mainpic_source, affiliation 
+										from researcher r, reference_researcher rr, reference ref
+										where r.id='".$profile_id."' AND rr.researcher_id=r.id AND rr.reference_id=ref.id");
+			foreach ($query->result() as $row) {
+				$profile_name = $row->name;
+				$profile_mainpic = $row->mainpic_source;
+				$affiliation = $row->affiliation;
+			}
+
+			// GETTING STUDIES OF THE AUTHOR
+			$query = $this->db->query("select r.id AS id, r.title AS title, 'study' AS result_type
+										from reference r, reference_researcher rr 
+										where rr.researcher_id = '".
+										$profile_id."' AND rr.reference_id = r.id");
+			$studies_result = $query->result();
+
+			// GETTING ENCOUNTERED GENOMES
+			$query = $this->db->query("select DISTINCT o.id AS id, o.species AS species, 'genome' AS result_type
+										from reference r, reference_researcher rr, genbank g, genbank_reference gr, organism o 
+										where rr.researcher_id = '".
+										$profile_id."' AND rr.reference_id = r.id AND gr.reference_id = r.id AND gr.genbank_id = g.id AND g.organism_id = o.id");
+			$genomes_result = $query->result();
+
+			
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_type' => $profile_type,
+			'profile_name' => $profile_name,
+			'profile_mainpic' => $profile_mainpic,
+
+			'age' => "53",
+			'birthdate' => "May 12, 1996",
+			'sex' => "M",
+			'contact' => "09179118551",
+			'affiliation' => $affiliation,
+
+			'studies_result' => $studies_result,
+			'genomes_result' => $genomes_result
+			);
+
+			$this->load->view('profile-researcher', $data);
+		}
+		else if( $profile_type == 'study') {
+			$query = $this->db->query("select title, 'assets/img/study.jpg' AS mainpic_source 
+										from reference r
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$profile_title = $row->title;
+				$profile_mainpic = $row->mainpic_source;
+			}
+
+			// GETTING JOURNALS AND PUBMED
+			$query = $this->db->query("select journal, pubmed
+										from researcher r, reference_researcher rr, reference ref
+										where r.id='".$profile_id."' AND reference_id=ref.id AND researcher_id=r.id");
+			foreach ($query->result() as $row) {
+				$journals = $row->journal;
+				$pubmed = $row->pubmed;
+			}
+
+			// GETTING RESEARCHERS OF THE STUDY
+			$query = $this->db->query("select r.id AS id, CONCAT(r.first_name, r.last_name) AS name, 'researcher' AS result_type 
+										from researcher r, reference_researcher rr 
+										where rr.reference_id = '".
+										$profile_id."' AND rr.researcher_id = r.id");
+			$researchers_result = $query->result();
+
+			// GETTING ENCOUNTERED GENOMES
+			$query = $this->db->query("select DISTINCT o.id AS id, o.species AS species, 'genome' AS result_type
+										from reference_researcher rr, genbank g, genbank_reference gr, organism o 
+										where rr.reference_id = '".
+										$profile_id."' AND gr.genbank_id = g.id AND g.organism_id = o.id");
+			$genomes_result = $query->result();
+
+			
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_type' => $profile_type,
+			'profile_title' => $profile_title,
+			'profile_mainpic' => $profile_mainpic,
+
+			'journals' => $journals,
+			'pubmed' => $pubmed,
+
+			'researchers_result' => $researchers_result,
+			'genomes_result' => $genomes_result
+			);
+
+			$this->load->view('profile-study', $data);
+		}
+		else if( $profile_type == 'genome') {
+			$query = $this->db->query("select species, 'assets/img/genome.jpg' AS mainpic_source
+										from organism o
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$profile_title = $row->species;
+				$profile_mainpic = $row->mainpic_source;
+			}
+
+			// GETTING TAXONONMY
+			$query = $this->db->query("select taxonomy
+										from organism o
+										where id='".$profile_id."'");
+			foreach ($query->result() as $row) {
+				$taxonomy = $row->taxonomy;
+			}
+
+			// GETTING STUDIES
+			$query = $this->db->query("select DISTINCT r.id AS id, r.title AS title, 'study' AS result_type
+										from reference r, genbank_reference gr, organism o, genbank g
+										where o.id = '".
+										$profile_id."' AND o.id = g.id AND g.id = gr.genbank_id AND gr.reference_id = r.id");
+			$studies_result = $query->result();
+
+			// GETTING RESEARCHERS THAT ENCOUNTERDBLABLA
+			$query = $this->db->query("select DISTINCT re.id AS id, CONCAT(re.first_name, re.last_name) AS name, 'researcher' AS result_type 
+										from reference r, genbank_reference gr, organism o, genbank g, reference_researcher rr, researcher re
+										where o.id = '".
+										$profile_id."' AND o.id = g.id AND g.id = gr.genbank_id AND gr.reference_id = r.id AND r.id = rr.reference_id AND re.id = rr.researcher_id");
+			$researchers_result = $query->result();
+
+			
+
+			// RESULTS
+			$data = array(
+			'profile_id' => $profile_id,
+			'profile_type' => $profile_type,
+			'profile_title' => $profile_title,
+			'profile_mainpic' => $profile_mainpic,
+
+			'taxonomy' => $taxonomy,
+
+			'studies_result' => $studies_result,
+			'researchers_result' => $researchers_result
+			);
+
+			$this->load->view('profile-genome', $data);
+
+		}
+	}
+
 
 	private function buildArrayFromJournalResult($journal_result){
 

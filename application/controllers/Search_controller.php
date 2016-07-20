@@ -30,27 +30,34 @@ class Search_controller extends CI_Controller {
 		$search_input = $this->input->get('search_input');
 		$filter_input = $this->input->get('filter_input');
 
-		if( $filter_input == 'researcher') {
+		$searchResults = array();
 
-			$query = $this->db->query("select id, name AS title, 'researcher' AS result_type
+		if( $filter_input == 'researcher' || $filter_input == 'all') {
+
+			$query = $this->db->query("select id, CONCAT(first_name, last_name) AS title, 'researcher' AS result_type , 'assets/img/researcher.jpg' AS img_source 
 										from researcher r 
-										where name LIKE '%".
+										where first_name LIKE '%".
+										$search_input."%' OR last_name LIKE '%".
 										$search_input."%'");
-			$img_source = "assets/img/researcher.jpg";
+			// $img_source = "assets/img/researcher.jpg";
+			$searchResults[] = $query->result();
 		}
-		else if( $filter_input == 'study') {
-			$query = $this->db->query("select id, title AS title, 'study' AS result_type
-										from journal j 
+		if( $filter_input == 'study' || $filter_input == 'all') {
+			$query = $this->db->query("select id, title AS title, 'study' AS result_type, 'assets/img/study.jpg' AS img_source 
+										from reference r 
 										where title LIKE '%".
 										$search_input."%'");
-			$img_source = "assets/img/study.jpg";
+			$searchResults[] = $query->result();
+		}
+		if( $filter_input == 'genome' || $filter_input == 'all') {
+			$query = $this->db->query("select id, species AS title, 'genome' AS result_type, 'assets/img/genome.jpg' AS img_source 
+										from organism o 
+										where species LIKE '%".
+										$search_input."%'");
+			$searchResults[] = $query->result();
 		}
 		else {
-			$query = $this->db->query("select id, name AS title
-										from researcher r 
-										where name LIKE '%".
-										$search_input."%'");
-			$img_source = "assets/img/researcher.jpg";
+			// SEARCH ALL
 		}
 
 		// $queryResult = $query->result();
@@ -63,8 +70,7 @@ class Search_controller extends CI_Controller {
 
 		$data = array(
 		'filter_input' => $filter_input,
-		'queryResult' => $query->result(),
-		'img_source' => $img_source
+		'searchResults' => $searchResults,
 		);
 
 		$this->load->view('results', $data);

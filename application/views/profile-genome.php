@@ -48,17 +48,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col s12 m4 left-side">
 				<img src="<?php echo base_url().$profile_mainpic; ?>" alt="" class="circle user-img responsive-img">
 			  <div class="block"> 
-				<h4 class="center indigo-text"><?php echo $profile_name; ?></h4>
+				<h4 class="center indigo-text"><?php echo $profile_title; ?></h4>
 				<h5 class="light center"><?php echo ucfirst($profile_type); ?></h5>
 			  </div>
 			  <hr>
 			  <h5 class="center indigo-text">Basic Info</h5>
-			  <p>Age: 53</p>
-			  <p>Birth Date: July 11, 1964</p>
-			  <p>Sex: Male</p>
-			  <p>Contact: +639179118552</p>
+			  <p>Taxonomy: <?php echo $taxonomy; ?></p><!-- 
 			  <h5 class="center indigo-text">Affiliations</h5>
-			  <p><?php echo $affiliation; ?></p>
+			  <p><?php echo $affiliation; ?></p> -->
 			</div>
 
 			<div class="col s12 m8 right-side">
@@ -72,11 +69,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="card large">
 								<div class="card-image">
 										<img src="/assets/img/workstation1.jpg" alt="work">
-										<span class="card-title ">Studies <i class="mdi-navigation-more-vert right"></i></span>
+										<span class="card-title ">Researchers <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">
-									<?php foreach($studies_result as $row): ?>
-									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->title; ?></a>
+									<?php foreach($researchers_result as $row): ?>
+									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->name; ?></a><br>
 									<?php endforeach; ?>
 								</div>
 							</div>
@@ -89,11 +86,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="card large">
 								<div class="card-image">
 										<img src="/assets/img/workstation1.jpg" alt="work">
-										<span class="card-title">Encountered Genomes <i class="mdi-navigation-more-vert right"></i></span>
+										<span class="card-title">Studies <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">
-									<?php foreach($genomes_result as $row): ?>
-									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->species; ?></a>
+									<?php foreach($studies_result as $row): ?>
+									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->title; ?></a>
 									<?php endforeach; ?>
 									
 								</div>
