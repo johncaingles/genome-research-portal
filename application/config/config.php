@@ -22,8 +22,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
 |
-*/
+
 $config['base_url'] = 'http://10.100.192.54/';
+=======
+$config['base_url'] = 'http://10.100.197.82/';
+>>>>>>> 77648d643469159d6e62f5d2c0b71a2fdd299c79
 
 /*
 |--------------------------------------------------------------------------

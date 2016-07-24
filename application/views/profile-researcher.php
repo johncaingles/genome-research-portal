@@ -128,6 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">
       	<div id="personal_info_modal_select" class="col s12">
 			    <div class="input-field col s12">
+
 			      <input name="last_name_input" value="<?php echo $profile_name; ?>" id="last_name_input" type="text" class="validate">
 			      <label class="active" for="last_name_input">Last Name</label>
 			    </div>
@@ -155,6 +156,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <div class="input-field col s12">
 			      <input name="contact_input" value="<?php echo $profile_name; ?>" id="contact_input" type="text" class="validate">
 			      <label class="active" for="contact_input">Contact</label>
+
+			      <input name="search_input" value="<?php echo $profile_name; ?>" id="search_input" type="text" class="validate">
+			      <label class="active" for="search_input">Name</label>
+
 			    </div>
 
 
@@ -163,7 +168,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			      <button href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</button>
 			    </div>
 
+
 		</div>
+
+			  </div>
+
 
 	    <div id="journals_modal_select" class="col s12">
 	    	<form method="post" action="<?php echo site_url('profile_edit_controller/edit_journal')  ?>">
@@ -181,6 +190,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    </div>
 
 			    <div class="input-field col s12">
+
 			      <input name="journal_add_title_input" value=" " id="journal_add_title_input" type="text" class="validate">
 			      <label class="active" for="journal_add_title_input">Title</label>
 			    </div>
@@ -198,6 +208,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    <div class="input-field col s12">
 			      <input name="journal_add_affiliation_input" value=" " id="journal_add_affiliation_input" type="text" class="validate">
 			      <label class="active" for="journal_add_affiliation_input">Affiliations</label>
+
+			      <input name="journal_add_input" value=" " id="search_input" type="text" class="validate">
+			      <label class="active" for="search_input">New Journal</label>
+
 			    </div>
 
 			    <h5>Remove a Journal</h5>
