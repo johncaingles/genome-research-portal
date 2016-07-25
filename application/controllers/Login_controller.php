@@ -30,6 +30,30 @@ class login_controller extends CI_Controller {
 		$username = $this->input->get('username');
 		$password = $this->input->get('password');
 
+		$account_id = 0;
+		$account_exists = false;
+
+		// CHECK DATABSE IF EXISTS
+		$query = $this->db->query("select id
+								   from accounts
+								   where username='".$username."' AND password='".$password."'");
+		foreach ($query->result() as $row) {
+			$account_id = $row->id;
+			$account_exists = true;
+		}
+
+		if($account_exists){
+			$this->session->set_userdata('username', $username);
+			$this->session->set_userdata('password', $password);
+			$this->session->set_userdata('account_id', $account_id);
+
+			$this->session->set_userdata('logged_in', TRUE);
+		}
+
+		// $this->load->view('home');
+		redirect(base_url());
+		// redirect($_SERVER['REQUEST_URI'], 'refresh');
+
 		// if( $filter_input == 'researcher') {
 		// 	$query = $this->db->query("select id, name AS title
 		// 								from researcher r 
@@ -59,7 +83,14 @@ class login_controller extends CI_Controller {
 		// 'queryResult' => $query->result(),
 		// 'img_source' => $img_source
 		// );
+	}
 
-		$this->load->view('results', $data);
+	public function logout(){
+
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('password');
+        $this->session->unset_userdata('logged_in');
+		redirect(base_url());
+
 	}
 }

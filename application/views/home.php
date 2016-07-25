@@ -20,10 +20,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li><a href="">Researchers</a></li>
         <li><a href="">Studies</a></li>
         <li><a href="">About</a></li>
-        <li><a href="<?php echo site_url('login_controller/index'); ?>">Login</a></li>
+        <li><?php $this->load->view('nav_login'); ?></li>
       </ul>
     </div>
   </nav>
+  <?php $this->load->view('login_modal'); ?>
+  <?php $this->load->view('login_dropdown'); ?>
 
   <!-- <script>alert("<?php echo site_url('search_controller/searchSingle'); ?>")</script> -->
 
@@ -70,10 +72,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <footer class="page-footer light-blue lighten-1">
 	
 </footer>
-
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
+    $('.modal-trigger').leanModal();
 });
 </script>
 

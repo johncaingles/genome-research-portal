@@ -16,14 +16,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 	
 	<nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="<?php echo base_url(); ?>" class="brand-logo">Logo</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="">Researchers</a></li>
         <li><a href="">Studies</a></li>
         <li><a href="">About</a></li>
+        <li><?php $this->load->view('nav_login'); ?></li>
       </ul>
     </div>
   </nav>
+  <?php $this->load->view('login_modal'); ?>
+  <?php $this->load->view('login_dropdown'); ?>
 
 	<div class="container"><!-- 
 			<div class="row">
@@ -65,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<input type="hidden" name="result_id" value="<?php echo $row->id ?>">
 						<div class="col s4">
 					        <div class="card " style="overflow: hidden;">
-				              <div class="card-image waves-effect waves-block waves-light" style="height: 300px; " >
+				              <div class="card-image waves-effect waves-block waves-light"  >
 				                <img class="activator" src="<?php echo base_url().'/'.$row->img_source; ?>">
 				                <span class="card-title"><?php echo ucfirst($row->result_type); ?></span>
 				              </div>
@@ -97,6 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
+    $('.modal-trigger').leanModal();
 });
 </script>	
 
