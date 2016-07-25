@@ -20,7 +20,7 @@
 	margin-top: -120px;
 	margin-bottom:50px;
 }
-img.responsive-img {
+/*img.responsive-img {
 	max-width: 100%;
 	height: auto;
 }
@@ -29,6 +29,13 @@ img.circle {
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 	background-clip: padding-box;
+}*/
+#footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    margin-top: -3em;
 }
 i {
 	vertical-align:middle;

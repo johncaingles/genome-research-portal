@@ -14,18 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 
 <body>
-	<nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Researchers</a></li>
-        <li><a href="">Studies</a></li>
-        <li><a href="">About</a></li>
-        <li><?php $this->load->view('nav_login'); ?></li>
-      </ul>
-    </div>
-  </nav>
-  <?php $this->load->view('login_modal'); ?>
-  <?php $this->load->view('login_dropdown'); ?>
+	  <?php $this->load->view('nav_bar'); ?>
 
 	<!-- <section id="top-bar">
 	<div class="spinner-layer spinner-green">
@@ -70,9 +59,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					<div class="row">
 						<div class="col m12 s12">
-							<div class="card large">
+							<div class="card">
 								<div class="card-image">
-										<img src="/assets/img/workstation1.jpg" alt="work">
+										<img src="/assets/img/researcher_banner.jpg" alt="work">
 										<span class="card-title ">Researchers <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">
@@ -87,9 +76,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					<div class="row">
 						<div class="col m12 s12">
-							<div class="card large">
+							<div class="card">
 								<div class="card-image">
-										<img src="/assets/img/workstation1.jpg" alt="work">
+										<img src="/assets/img/genome_banner.jpg" alt="work">
 										<span class="card-title">Related Genomes <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">

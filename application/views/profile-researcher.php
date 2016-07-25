@@ -14,18 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 
 <body>
-	<nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Researchers</a></li>
-        <li><a href="">Studies</a></li>
-        <li><a href="">About</a></li>
-        <li><?php $this->load->view('nav_login'); ?></li>
-      </ul>
-    </div>
-  </nav>
-  <?php $this->load->view('login_modal'); ?>
-  <?php $this->load->view('login_dropdown'); ?>
+	  <?php $this->load->view('nav_bar'); ?>
 
 	<!-- <section id="top-bar">
 	<div class="spinner-layer spinner-green">
@@ -49,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">
 		<div class="col s12 m12">
 			<div class="col s12 m4 left-side">
-				<img src="<?php echo base_url().$profile_mainpic; ?>" alt="" class="circle user-img responsive-img">
+				<img src="<?php echo base_url().$profile_mainpic; ?>" alt="" class="circle user-img responsive-img col s12">
 			  <div class="block"> 
 				<h4 class="center indigo-text"><?php echo $profile_name; ?></h4>
 				<h5 class="light center"><?php echo ucfirst($profile_type); ?></h5>
@@ -66,15 +55,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<div class="col s12 m8 right-side">
 				<div class="block">
+					<?php if($this->session->userdata('account_id')==$profile_id){ ?>
 					<div class="row">
 					  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Info</a>
 					</div>
+					<?php } ?>
 
 					<div class="row">
 						<div class="col m12 s12">
-							<div class="card large">
+							<div class="card">
 								<div class="card-image">
-										<img src="/assets/img/workstation1.jpg" alt="work">
+										<img src="/assets/img/study_banner.jpg" alt="work">
 										<span class="card-title ">Studies <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">
@@ -89,9 +80,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					<div class="row">
 						<div class="col m12 s12">
-							<div class="card large">
+							<div class="card">
 								<div class="card-image">
-										<img src="/assets/img/workstation1.jpg" alt="work">
+										<img src="/assets/img/genome_banner.jpg" alt="work">
 										<span class="card-title">Encountered Genomes <i class="mdi-navigation-more-vert right"></i></span>
 								</div>
 								<div class="card-content">
@@ -131,8 +122,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">
       	<div id="personal_info_modal_select" class="col s12">
 			    <div class="input-field col s12">
+
+			      <input name="last_name_input" value="<?php echo $profile_name; ?>" id="last_name_input" type="text" class="validate">
+			      <label class="active" for="last_name_input">Last Name</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="first_name_input" value="<?php echo $profile_name; ?>" id="first_name_input" type="text" class="validate">
+			      <label class="active" for="first_name_input">First Name</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="age_input" value="<?php echo $profile_name; ?>" id="age_input" type="number" class="validate">
+			      <label class="active" for="age_input">Age</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="birth_date_input" value="<?php echo $profile_name; ?>" id="birth_date_input" type="text" class="validate">
+			      <label class="active" for="birth_date_input">Birth Date</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="sex_input" value="<?php echo $profile_name; ?>" id="sex_input" type="text" class="validate">
+			      <label class="active" for="sex_input">Sex</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="contact_input" value="<?php echo $profile_name; ?>" id="contact_input" type="text" class="validate">
+			      <label class="active" for="contact_input">Contact</label>
+
 			      <input name="search_input" value="<?php echo $profile_name; ?>" id="search_input" type="text" class="validate">
 			      <label class="active" for="search_input">Name</label>
+
 			    </div>
 
 
@@ -141,7 +162,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			      <button href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</button>
 			    </div>
 
+
+		</div>
+
 			  </div>
+
 
 	    <div id="journals_modal_select" class="col s12">
 	    	<form method="post" action="<?php echo site_url('profile_edit_controller/edit_journal')  ?>">
@@ -159,8 +184,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    </div>
 
 			    <div class="input-field col s12">
+
+			      <input name="journal_add_title_input" value=" " id="journal_add_title_input" type="text" class="validate">
+			      <label class="active" for="journal_add_title_input">Title</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="journal_add_journal_input" value=" " id="journal_add_journal_input" type="text" class="validate">
+			      <label class="active" for="journal_add_journal_input">Journal</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="journal_add_pubmed_input" value=" " id="journal_add_pubmed_input" type="text" class="validate">
+			      <label class="active" for="journal_add_pubmed_input">Affiliations</label>
+			    </div>
+
+			    <div class="input-field col s12">
+			      <input name="journal_add_affiliation_input" value=" " id="journal_add_affiliation_input" type="text" class="validate">
+			      <label class="active" for="journal_add_affiliation_input">Affiliations</label>
+
 			      <input name="journal_add_input" value=" " id="search_input" type="text" class="validate">
 			      <label class="active" for="search_input">New Journal</label>
+
 			    </div>
 
 			    <h5>Remove a Journal</h5>

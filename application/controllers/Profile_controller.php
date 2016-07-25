@@ -183,12 +183,20 @@ class Profile_controller extends CI_Controller {
 	{
 
 		if( $profile_type == 'researcher') {
-			$query = $this->db->query("select CONCAT(first_name, last_name) AS name, 'assets/img/researcher.jpg' AS mainpic_source, affiliation 
-										from researcher r, reference_researcher rr, reference ref
-										where r.id='".$profile_id."' AND rr.researcher_id=r.id AND rr.reference_id=ref.id");
+			$query = $this->db->query("select CONCAT(first_name, last_name) AS name, 'assets/img/researcher.jpg' AS mainpic_source
+										from researcher r
+										where r.id='".$profile_id."'");
 			foreach ($query->result() as $row) {
 				$profile_name = $row->name;
 				$profile_mainpic = $row->mainpic_source;
+			}
+
+			// GETTING AFFILIATOIN
+			$affiliation = "";
+			$query = $this->db->query("select affiliation
+										from researcher r, reference_researcher rr, reference ref
+										where r.id='".$profile_id."' AND rr.researcher_id=r.id AND rr.reference_id=ref.id");
+			foreach ($query->result() as $row) {
 				$affiliation = $row->affiliation;
 			}
 

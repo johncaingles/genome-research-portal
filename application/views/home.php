@@ -13,19 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 <body>
-
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Researchers</a></li>
-        <li><a href="">Studies</a></li>
-        <li><a href="">About</a></li>
-        <li><?php $this->load->view('nav_login'); ?></li>
-      </ul>
-    </div>
-  </nav>
-  <?php $this->load->view('login_modal'); ?>
-  <?php $this->load->view('login_dropdown'); ?>
+  
+  <?php $this->load->view('nav_bar'); ?>
 
   <!-- <script>alert("<?php echo site_url('search_controller/searchSingle'); ?>")</script> -->
 
@@ -69,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <br><br><br><br><br>
 
-<footer class="page-footer light-blue lighten-1">
+<footer id="footer" class="page-footer light-blue lighten-1">
 	
 </footer>
 <script type="text/javascript">
