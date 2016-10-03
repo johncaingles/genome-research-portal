@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 <body>
-  
+
   <?php $this->load->view('nav_bar'); ?>
 
   <!-- <script>alert("<?php echo site_url('search_controller/searchSingle'); ?>")</script> -->
@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			      <input name="search_input" value="" id="search_input" type="text" class="validate">
 			      <label class="active" for="search_input">Search</label>
 			    </div>
-    
+
 			  <div class="input-field col s4">
 			    <select name="filter_input">
 			      <!-- <option value="" disabled selected>Choose a filter</option> -->
@@ -48,18 +48,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    </div>
 		</div>
 
-		<div class="container" style="width: 10%; height: 50px; line-height: 10px;" type="submit">	    
+		<div class="container" style="width: 10%; height: 50px; line-height: 10px;" type="submit">
 			<div class="row">
-			    <button class="btn waves-effect waves-teal col s12">Search</button>
+			    <button class="btn waves-effect waves-light blue col s12">Search</button>
 			</div>
 		</div>
 	</div>
 </form>
 
-<br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
-<footer id="footer" class="page-footer light-blue lighten-1">
-	
+<footer class="page-footer light-blue lighten-1">
+
 </footer>
 <script type="text/javascript">
 $(document).ready(function() {

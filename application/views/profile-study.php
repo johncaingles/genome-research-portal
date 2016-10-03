@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="col s12 m12">
 			<div class="col s12 m4 left-side">
 				<img src="<?php echo base_url().$profile_mainpic; ?>" alt="" class="circle user-img responsive-img">
-			  <div class="block"> 
+			  <div class="block">
 				<h4 class="center indigo-text"><?php echo $profile_title; ?></h4>
 				<h5 class="light center"><?php echo ucfirst($profile_type); ?></h5>
 			  </div>
@@ -53,9 +53,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<div class="col s12 m8 right-side">
 				<div class="block">
-					<div class="row">
+					<!-- <div class="row">
 					  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Edit Info</a>
-					</div>
+					</div> -->
 
 					<div class="row">
 						<div class="col m12 s12">
@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<?php foreach($genomes_result as $row): ?>
 									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->species; ?></a><br>
 									<?php endforeach; ?>
-									
+
 								</div>
 							</div>
 
@@ -163,34 +163,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    </div>
 
 
-			
+
 			    <div class="modal-footer">
 			      <button href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" type="submit">Update</button>
 			      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 			    </div>
 			    </form>
-			
+
 			  </div>
 
       </div>
     </div>
   </div>
 
-  
+
 </div>
-            
+
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('.modal-trigger').leanModal();
 });
-</script>	
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
 });
-</script>	
+</script>
 
 </body>
 </html>

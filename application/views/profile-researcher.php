@@ -38,8 +38,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <div class="row">
 		<div class="col s12 m12">
 			<div class="col s12 m4 left-side">
-				<img src="<?php echo base_url().$profile_mainpic; ?>" alt="" class="circle user-img responsive-img col s12">
-			  <div class="block"> 
+				<img src="<?php echo base_url().'/assets/img/researcher_'.mt_rand(1,10).".png" ?>" alt="" class="circle user-img responsive-img col s12">
+			  <div class="block">
 				<h4 class="center indigo-text"><?php echo $profile_name; ?></h4>
 				<h5 class="light center"><?php echo ucfirst($profile_type); ?></h5>
 			  </div>
@@ -50,7 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			  <p>Sex: Male</p>
 			  <p>Contact: +639179118552</p>
 			  <h5 class="center indigo-text">Affiliations</h5>
-			  <p><?php echo $affiliation; ?></p>
+<!-- 
+				<?php foreach ($affiliations_result as $row): ?>
+				  <p><?php echo $row->affiliation; ?></p>
+				<?php endforeach; ?>
+				 -->
 			</div>
 
 			<div class="col s12 m8 right-side">
@@ -89,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<?php foreach($genomes_result as $row): ?>
 									<a href="<?php echo base_url().'profile_controller/initializeFromLink/'.$row->id.'/'.$row->result_type; ?>"><?php echo $row->species; ?></a>
 									<?php endforeach; ?>
-									
+
 								</div>
 							</div>
 
@@ -221,34 +225,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    </div>
 
 
-			
+
 			    <div class="modal-footer">
 			      <button href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" type="submit">Update</button>
 			      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 			    </div>
 			    </form>
-			
+
 			  </div>
 
       </div>
     </div>
   </div>
 
-  
+
 </div>
-            
+
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('.modal-trigger').leanModal();
 });
-</script>	
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
     $('select').material_select();
 });
-</script>	
+</script>
 
 </body>
 </html>

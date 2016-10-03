@@ -25,7 +25,7 @@ class Search_controller extends CI_Controller {
 
 	public function searchSingle()
 	{
-		
+
 
 		$search_input = $this->input->get('search_input');
 		$filter_input = $this->input->get('filter_input');
@@ -34,24 +34,24 @@ class Search_controller extends CI_Controller {
 
 		if( $filter_input == 'researcher' || $filter_input == 'all') {
 
-			$query = $this->db->query("select id, CONCAT(first_name, last_name) AS title, 'researcher' AS result_type , 'assets/img/researcher.jpg' AS img_source 
-										from researcher r 
+			$query = $this->db->query("select id, name AS title, 'researcher' AS result_type , 'assets/img/researcher_".mt_rand(1,10).".png' AS img_source
+										from researcher r
 										where first_name LIKE '%".
 										$search_input."%' OR last_name LIKE '%".
-										$search_input."%'");
+										$search_input."%' OR name LIKE '%.".$search_input."%'");
 			// $img_source = "assets/img/researcher.jpg";
 			$searchResults[] = $query->result();
 		}
 		if( $filter_input == 'study' || $filter_input == 'all') {
-			$query = $this->db->query("select id, title AS title, 'study' AS result_type, 'assets/img/study.jpg' AS img_source 
-										from reference r 
+			$query = $this->db->query("select id, title AS title, 'study' AS result_type, 'assets/img/study.jpg' AS img_source
+										from reference r
 										where title LIKE '%".
 										$search_input."%'");
 			$searchResults[] = $query->result();
 		}
 		if( $filter_input == 'genome' || $filter_input == 'all') {
-			$query = $this->db->query("select id, species AS title, 'genome' AS result_type, 'assets/img/genome.jpg' AS img_source 
-										from organism o 
+			$query = $this->db->query("select id, species AS title, 'genome' AS result_type, 'assets/img/genome.jpg' AS img_source
+										from organism o
 										where species LIKE '%".
 										$search_input."%'");
 			$searchResults[] = $query->result();
